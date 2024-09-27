@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: shared_admin
+dependency_overrides:
+  shared_admin:
+    path: ../shared_admin

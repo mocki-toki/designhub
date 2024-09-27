@@ -1,0 +1,215 @@
+{
+  "folders": [
+    { "name": "monorepo", "path": "." },
+
+    // shared
+    { "name": " ", "path": "a" },
+    { "name": "•  𝙎𝙝𝙖𝙧𝙚𝙙 𝙥𝙖𝙘𝙠𝙖𝙜𝙚𝙨", "path": "a/a" },
+    { "name": "shared", "path": "packages/shared" },
+    {
+      "name": "shared (backend)",
+      "path": "packages/backend/packages/shared_backend"
+    },
+    {
+      "name": "shared (prisma backend)",
+      "path": "packages/backend/packages/shared_prisma_backend"
+    },
+    {
+      "name": "shared (admin)",
+      "path": "packages/admin/packages/shared_admin"
+    },
+
+    // entry points
+    { "name": " ", "path": "a/a/a" },
+    { "name": "•  𝙀𝙣𝙩𝙧𝙮 𝙥𝙤𝙞𝙣𝙩𝙨", "path": "a/a/a/a" },
+    { "name": "backend (admin)", "path": "packages/admin/packages/backend" },
+    {
+      "name": "backend (prisma admin)",
+      "path": "packages/admin/packages/prisma_backend"
+    },
+
+    // features
+    { "name": " ", "path": "a/a/a/a/a" },
+    { "name": "•  𝙁𝙚𝙖𝙩𝙪𝙧𝙚𝙨", "path": "a/a/a/a/a/a" },
+    { "name": "storage (shared)", "path": "packages/storage" },
+    {
+      "name": "storage (backend)",
+      "path": "packages/backend/packages/storage_backend"
+    },
+    {
+      "name": "storage (prisma backend)",
+      "path": "packages/backend/packages/storage_prisma_backend"
+    }
+  ],
+  "settings": {
+    "explorer.compactFolders": false,
+    "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "**/.env": true,
+
+      "**/.mason": true,
+      "**/mason-lock.json": true,
+
+      "**/.idea": true,
+      "**/*.iml": true,
+
+      "**/*.freezed.dart": true,
+      // "**/*.g.dart": true,
+      "**/*.i18n.dart": true,
+      "**/generated_plugin_registrant.dart": true,
+
+      "**/.flutter-plugins": true,
+      "**/.flutter-plugins-dependencies": true,
+      "**/.packages": true,
+      "**/.dart_tool": true,
+
+      "**/.metadata": true,
+      "**/pubspec.lock": true,
+      "**/pubspec_overrides.yaml": true,
+
+      "**/.dart_frog": true
+    },
+    "editor.formatOnSave": true,
+    "dart.runPubGetOnPubspecChanges": "never"
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch Admin Backend",
+        "type": "dart",
+        "request": "launch",
+        "program": "packages/admin/packages/backend/lib/main.dart"
+      },
+      {
+        "name": "Launch Tests Admin Backend",
+        "type": "dart",
+        "request": "launch",
+        "program": "packages/admin/packages/backend/test"
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "pub get",
+        "command": "flutter pub get && dart run melos bootstrap && dart run melos run utils:generate_indexes",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "dart fix",
+        "command": "dart fix . --apply",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Generate indexes",
+        "command": "dart run melos run utils:generate_indexes",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Generate localizations",
+        "command": "dart run melos run utils:generate_localizations",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Pub upgrade major versions",
+        "command": "dart run melos run pub:major",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Generate code",
+        "command": "dart run melos run generate",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Clean code",
+        "command": "dart run melos run clean",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Fresh project",
+        "command": "dart run melos run fresh",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Generate coverage",
+        "command": "dart run melos run coverage",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Prisma: generate",
+        "command": "dart run melos run prisma:generate",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Prisma: push",
+        "command": "dart run melos run prisma:push",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Prisma: push force",
+        "command": "dart run melos run prisma:push:force",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      },
+      {
+        "label": "Prisma: pull",
+        "command": "dart run melos run prisma:pull",
+        "group": "build",
+        "type": "shell",
+        "options": {
+          "cwd": "packages/admin"
+        }
+      }
+    ]
+  }
+}

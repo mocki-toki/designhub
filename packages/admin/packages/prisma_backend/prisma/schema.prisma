@@ -1,0 +1,53 @@
+generator client {
+  provider = "dart run orm"
+  output   = "../lib/generated/prisma_client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("ADMIN_DATABASE_URL")
+}
+
+model AdminAccountDB {
+  id             String          @id @default(uuid())
+  email          String          @unique
+  totp           String          @unique
+  permissions    PermissionsDB[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  AdminProfileDB AdminProfileDB?
+  AdminSessionDB AdminSessionDB?
+
+  @@map("AdminAccount")
+}
+
+model AdminProfileDB {
+  id        String         @id @default(uuid())
+  accountId String         @unique
+  name      String         @unique
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  account   AdminAccountDB @relation(fields: [accountId], references: [id])
+
+  @@map("AdminProfile")
+}
+
+model AdminSessionDB {
+  id        String         @id @default(uuid())
+  accountId String         @unique
+  token     String         @unique
+  expires   DateTime
+  createdAt DateTime       @default(now())
+  account   AdminAccountDB @relation(fields: [accountId], references: [id])
+
+  @@map("AdminSession")
+}
+
+enum PermissionsDB {
+  daily
+  posts
+  users
+  adminAccounts
+
+  @@map("Permissions")
+}

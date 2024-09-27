@@ -13,7 +13,8 @@ void main() {
     'web',
     'linux',
     'windows',
-    'utils'
+    'utils',
+    'generated',
   ];
 
   final outputFile = File('project_files.txt');
@@ -26,13 +27,18 @@ void main() {
 }
 
 void processDirectory(
-    Directory directory, List<String> excludeFolders, IOSink sink) {
-  final entities = directory.listSync(recursive: false);
+  Directory directory,
+  List<String> excludeFolders,
+  IOSink sink,
+) {
+  final entities = directory.listSync();
 
   for (final entity in entities) {
     if (entity is File) {
       final fileName = entity.path;
-      if (fileName.endsWith('.dart') || fileName.endsWith('pubspec.yaml')) {
+      if (fileName.endsWith('.dart') ||
+          fileName.endsWith('pubspec.yaml') ||
+          fileName.endsWith('.prisma')) {
         final relativePath = entity.path.replaceAll(Directory.current.path, '');
         final content = entity.readAsStringSync();
 

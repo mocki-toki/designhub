@@ -5,7 +5,7 @@ import 'dart:io';
 
 bool isReplacing = false;
 
-void replaceContent(File file) async {
+Future<void> replaceContent(File file) async {
   if (!isReplacing) {
     isReplacing = true;
     try {
@@ -18,12 +18,12 @@ void replaceContent(File file) async {
           .transform(const LineSplitter())) {
         lineIndex++;
         if (line == '') continue;
-        if (line.contains(RegExp(r"^import"))) {
+        if (line.contains(RegExp('^import'))) {
           final layers = ['domain', 'infrastructure', 'presentation'];
           for (final layer in layers) {
             if (line.contains(layer)) {
               final newLine = line.replaceAll(
-                RegExp(r"\/" + layer + r"\/.*';"),
+                RegExp(r'\/' + layer + r"\/.*';"),
                 "/$layer.dart';",
               );
 

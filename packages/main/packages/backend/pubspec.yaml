@@ -1,0 +1,17 @@
+name: backend
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.4.4 <4.0.0"
+
+dependencies:
+  shared_main:
+    path: ../shared_main
+  shared_backend:
+    path: ../../../backend/packages/shared_backend
+  dart_frog: ^1.0.0
+
+dev_dependencies:
+  test: ^1.25.2
+  mocktail: ^1.0.3

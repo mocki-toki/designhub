@@ -29,16 +29,18 @@ void generateLocalizations() {
   for (final directory in Directory('.')
       .listSync(recursive: true)
       .whereType<Directory>()
-      .where((e) =>
-          e.path.contains('assets/locales') && !e.path.contains('build'))) {
+      .where(
+        (e) => e.path.contains('assets/locales') && !e.path.contains('build'),
+      )) {
     final packageName =
         directory.path.replaceFirst('/assets/locales', '').split('/').last;
 
     print('Generating localizations for $packageName...');
 
-    final presentationDirectory = Directory(directory.path
-        .replaceAll('assets/locales', 'lib/presentation/localizations'))
-      ..createSync(recursive: true);
+    final presentationDirectory = Directory(
+      directory.path
+          .replaceAll('assets/locales', 'lib/presentation/localizations'),
+    )..createSync(recursive: true);
 
     final files = directory
         .listSync()
@@ -47,23 +49,23 @@ void generateLocalizations() {
 
     final localizationKeys = <String, List<String>>{};
 
-    void generateLocalization(final File file) {
+    void generateLocalization(File file) {
       final fileName = file.path.split('/').last;
       final locale = fileName.split('.').first;
-      final Map<String, dynamic> map = json.decode(file.readAsStringSync());
+      final map = json.decode(file.readAsStringSync()) as Map<String, dynamic>;
 
       final buffer = StringBuffer();
 
       buffer.writeln(
         '// GENERATED FILE. DO NOT MODIFY.\n\n'
-        'part of \'localizations.g.dart\';\n\n'
+        "part of 'localizations.g.dart';\n\n"
         'final class ${_snakeToUpperCamel(locale)}${_snakeToUpperCamel(packageName)}LocalizationData implements ${_snakeToUpperCamel(packageName)}LocalizationData {\n'
         '  const ${_snakeToUpperCamel(locale)}${_snakeToUpperCamel(packageName)}LocalizationData();\n',
       );
 
       for (final key in map.keys) {
         if (map[key].toString().contains('{')) {
-          final placeholders = RegExp(r'{(.*?)}').allMatches(map[key]);
+          final placeholders = RegExp('{(.*?)}').allMatches(map[key] as String);
           final placeholderNames = placeholders
               .map((e) => e.group(1))
               .map((e) => e!.replaceAll(RegExp(r'\W'), ''))
@@ -79,20 +81,20 @@ void generateLocalizations() {
           buffer.writeln(
             '  @override\n'
             '  String ${_snakeToLowerCamel(key)}(${placeholderNames.map((e) => 'String $e').join(', ')}) => '
-            '\'$value\';',
+            "'$value';",
           );
         } else {
           localizationKeys[key] = [];
           buffer.writeln(
             '  @override\n'
-            '  String get ${_snakeToLowerCamel(key)} => r\'${map[key]}\';',
+            "  String get ${_snakeToLowerCamel(key)} => r'${map[key]}';",
           );
         }
       }
 
       buffer.writeln('\n  @override\n  Map<String, String> get map => {');
       for (final key in map.keys) {
-        buffer.writeln('        \'$key\': r\'${map[key]}\',');
+        buffer.writeln("        '$key': r'${map[key]}',");
       }
 
       buffer.writeln('      };\n}');
@@ -106,20 +108,21 @@ void generateLocalizations() {
 
       buffer.writeln(
         '// GENERATED FILE. DO NOT MODIFY.\n// ignore_for_file: library_private_types_in_public_api\n\n'
-        'import \'package:flutter/widgets.dart\';\n'
-        'import \'package:flutter_localizations/flutter_localizations.dart\';\n',
+        "import 'package:flutter/widgets.dart';\n"
+        "import 'package:flutter_localizations/flutter_localizations.dart';\n",
       );
 
       for (final file in files) {
         final fileName = file.path.split('/').last;
         final locale = fileName.split('.').first;
         buffer.writeln(
-          'part \'$locale.g.dart\';',
+          "part '$locale.g.dart';",
         );
       }
 
       buffer.writeln(
-          '\nabstract final class ${_snakeToUpperCamel(packageName)}LocalizationData {');
+        '\nabstract final class ${_snakeToUpperCamel(packageName)}LocalizationData {',
+      );
       for (final entry in localizationKeys.entries) {
         if (entry.value.isNotEmpty) {
           buffer.writeln(
@@ -144,7 +147,7 @@ void generateLocalizations() {
         '    )!;\n'
         '  }\n\n'
         '  static const List<Locale> supportedLocales = ['
-        '${files.map((e) => 'Locale(\'${e.path.split('/').last.split('.').first}\')').join(', ')}'
+        '${files.map((e) => "Locale('${e.path.split('/').last.split('.').first}')").join(', ')}'
         '];\n\n'
         '  static const List<LocalizationsDelegate> localizationsDelegates = [\n'
         '    ${_snakeToUpperCamel(packageName)}Localizations.delegate,\n'
@@ -162,8 +165,11 @@ void generateLocalizations() {
         '  @override\n'
         '  Future<${_snakeToUpperCamel(packageName)}LocalizationData> load(Locale locale) async {\n'
         '    switch (locale.languageCode) {\n'
-        '${files.map((e) => '      case \'${e.path.split('/').last.split('.').first}\':\n'
-            '        return const ${_snakeToUpperCamel(e.path.split('/').last.split('.').first)}${_snakeToUpperCamel(packageName)}LocalizationData();').join('\n')}\n'
+        '${files.map(
+              (e) =>
+                  "      case '${e.path.split('/').last.split('.').first}':\n"
+                  '        return const ${_snakeToUpperCamel(e.path.split('/').last.split('.').first)}${_snakeToUpperCamel(packageName)}LocalizationData();',
+            ).join('\n')}\n'
         '      default:\n'
         '        return const ${_snakeToUpperCamel(files.first.path.split('/').last.split('.').first)}${_snakeToUpperCamel(packageName)}LocalizationData();\n'
         '    }\n'

@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: shared_prisma_backend
+dependency_overrides:
+  shared_prisma_backend:
+    path: ../shared_prisma_backend

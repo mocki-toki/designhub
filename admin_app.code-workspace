@@ -1,0 +1,69 @@
+{
+  "folders": [
+    { "name": "monorepo", "path": "." },
+
+    // shared
+    { "name": " ", "path": "a" },
+    { "name": "•  𝙎𝙝𝙖𝙧𝙚𝙙 𝙥𝙖𝙘𝙠𝙖𝙜𝙚𝙨", "path": "a/a" },
+    {
+      "name": "shared",
+      "path": "packages/shared"
+    },
+    {
+      "name": "shared (app)",
+      "path": "packages/app/packages/shared_app"
+    },
+    {
+      "name": "shared (admin)",
+      "path": "packages/admin/packages/shared_admin"
+    },
+
+    // entry points
+    { "name": " ", "path": "a/a/a" },
+    { "name": "•  𝙀𝙣𝙩𝙧𝙮 𝙥𝙤𝙞𝙣𝙩𝙨", "path": "a/a/a/a" },
+    {
+      "name": "app (admin)",
+      "path": "packages/admin/app"
+    },
+
+    // features
+    { "name": " ", "path": "a/a/a/a/a" },
+    { "name": "•  𝙁𝙚𝙖𝙩𝙪𝙧𝙚𝙨", "path": "a/a/a/a/a/a" },
+    {
+      "name": "storage (shared)",
+      "path": "packages/storage"
+    }
+  ],
+  "settings": {
+    "explorer.compactFolders": false,
+    "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "**/.env": true,
+
+      "**/.mason": true,
+      "**/mason-lock.json": true,
+
+      "**/.idea": true,
+      "**/*.iml": true,
+
+      "**/*.freezed.dart": true,
+      // "**/*.g.dart": true,
+      "**/*.i18n.dart": true,
+      "**/generated_plugin_registrant.dart": true,
+
+      "**/.flutter-plugins": true,
+      "**/.flutter-plugins-dependencies": true,
+      "**/.packages": true,
+      "**/.dart_tool": true,
+
+      "**/.metadata": true,
+      "**/pubspec.lock": true,
+      "**/pubspec_overrides.yaml": true,
+
+      "**/.dart_frog": true
+    },
+    "editor.formatOnSave": true,
+    "dart.runPubGetOnPubspecChanges": "never"
+  }
+}

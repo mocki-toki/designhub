@@ -1,0 +1,23 @@
+name: app
+
+packages:
+  - packages/**
+
+command:
+  bootstrap:
+    hooks:
+      post: dart run melos run utils:generate_indexes
+
+scripts:
+  utils:format_imports: "dart run ../../utils/format_imports.dart"
+  utils:generate_localizations: "dart run ../../utils/generate_localizations.dart"
+  utils:generate_indexes: "dart run ../../utils/generate_indexes.dart && dart run melos run utils:format_imports"
+  pub:major: 'dart run melos exec "flutter pub upgrade --major-versions"'
+  generate: 'dart run melos exec --depends-on build_runner "dart run build_runner build --delete-conflicting-outputs"'
+  clean: 'dart run melos exec --depends-on flutter flutter clean && find -E . -regex ".*\.((g|freezed)\.dart|pubspec\.lock|\.DS_Store)" -type f -delete'
+  fresh: "dart run melos run clean && flutter pub get && dart run melos bootstrap && dart run melos run generate && dart run melos run utils:generate_localizations"
+  coverage: 'dart run melos exec --dir-exists="test" "flutter test --coverage"'
+  prisma:generate: 'dart run melos exec --file-exists="prisma/schema.prisma" "npx prisma generate"'
+  prisma:push: 'dart run melos exec --dir-exists="prisma" "npx prisma db push"'
+  prisma:push:force: 'dart run melos exec --dir-exists="prisma" "npx prisma db push --force-reset"'
+  prisma:pull: 'dart run melos exec --dir-exists="prisma" "npx prisma db pull"'

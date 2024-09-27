@@ -1,0 +1,89 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "pub get",
+      "command": "flutter pub get && dart run melos bootstrap",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "dart fix",
+      "command": "dart fix . --apply",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Generate indexes",
+      "command": "dart run melos run utils:generate_indexes",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Generate localizations",
+      "command": "dart run melos run utils:generate_localizations",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Pub upgrade major versions",
+      "command": "dart run melos run pub:major",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Generate code",
+      "command": "dart run melos run generate",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Clean code",
+      "command": "dart run melos run clean",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Fresh project (clean, bootstrap, generate)",
+      "command": "dart run melos run fresh",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Generate coverage",
+      "command": "dart run melos run coverage",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Prisma: generate",
+      "command": "dart run melos run prisma:generate",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Prisma: push",
+      "command": "dart run melos run prisma:push",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Prisma: push force",
+      "command": "dart run melos run prisma:push:force",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Prisma: pull",
+      "command": "dart run melos run prisma:pull",
+      "group": "build",
+      "type": "shell"
+    },
+    {
+      "label": "Create new package",
+      "command": "mason make package --output-dir packages/",
+      "group": "build",
+      "type": "shell"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+name: shared_backend
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.4.4 <4.0.0"
+
+dependencies:
+  shared:
+    path: ../../../shared
+  shared_prisma_backend:
+    path: ../shared_prisma_backend
+  dart_frog: ^1.0.0
+  shelf_cors_headers: ^0.1.5
+  shelf_multipart: ^2.0.0
+  otp: ^3.1.4
+  encrypt: ^5.0.3

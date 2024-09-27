@@ -1,0 +1,10 @@
+name: storage_admin_backend
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.4.4 <4.0.0"
+
+dependencies:
+  storage_backend:
+    path: ../../../../../backend/packages/storage_backend

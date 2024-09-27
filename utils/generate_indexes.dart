@@ -1,14 +1,14 @@
 import 'dart:io';
 
 void addExportFile(Directory dir) {
-  var f = File('${dir.parent.path}/${basename(dir.path)}.dart');
+  final f = File('${dir.parent.path}/${basename(dir.path)}.dart');
   if (f.existsSync()) {
     f.deleteSync();
   }
-  var sink = f.openWrite();
+  final sink = f.openWrite();
   sink.write('// GENERATED FILE: DO NOT MODIFY\n\n');
 
-  var files = dir.listSync(recursive: true).where((entity) {
+  final files = dir.listSync(recursive: true).where((entity) {
     return entity.path.endsWith('.dart') &&
         !entity.path.endsWith('.g.dart') &&
         !entity.path.endsWith('.gr.dart') &&
@@ -16,11 +16,11 @@ void addExportFile(Directory dir) {
         !basename(entity.path).contains('/_');
   });
 
-  for (var file in files) {
-    var fileName = basename(file.path);
+  for (final file in files) {
+    final fileName = basename(file.path);
     if (fileName != '${basename(dir.path)}.dart') {
-      var relativePath = file.path.substring(dir.parent.path.length + 1);
-      sink.write('export \'$relativePath\';\n');
+      final relativePath = file.path.substring(dir.parent.path.length + 1);
+      sink.write("export '$relativePath';\n");
     }
   }
 
@@ -40,7 +40,7 @@ void generateIndexes() {
 
   const directoryNames = ['domain', 'infrastructure', 'presentation'];
 
-  for (var dirName in directoryNames) {
+  for (final dirName in directoryNames) {
     Directory('./').listSync(recursive: true).forEach((entity) {
       if (entity is Directory && basename(entity.path) == dirName) {
         addExportFile(entity);

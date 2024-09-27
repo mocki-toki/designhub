@@ -1,0 +1,9 @@
+name: admin
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.4.4 <4.0.0"
+
+dev_dependencies:
+  melos: ^6.1.0

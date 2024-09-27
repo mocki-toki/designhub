@@ -1,0 +1,15 @@
+name: storage_backend
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.4.4 <4.0.0"
+
+dependencies:
+  shared_backend:
+    path: ../shared_backend
+  storage_prisma_backend:
+    path: ../storage_prisma_backend
+  storage:
+    path: ../../../storage
+  minio: ^3.5.2

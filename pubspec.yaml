@@ -3,12 +3,8 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ">=3.2.6 <4.0.0"
-
-dependencies:
-  analyzer: ^6.4.1
-  cli_progress_bar: ^1.0.4
+  sdk: ">=3.4.4 <4.0.0"
 
 dev_dependencies:
-  flutter_lints: ^2.0.1
-  melos: ^3.4.0
+  lint: ^2.3.0
+  melos: ^6.1.0

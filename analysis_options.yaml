@@ -1,1 +1,16 @@
-include: package:flutter_lints/flutter.yaml
+include: package:lint/strict.yaml
+
+analyzer:
+  plugins:
+    - architecture_linter
+  exclude:
+    - "**.freezed.dart"
+    - "**.g.dart"
+    - "bricks/**"
+
+# You can customize the lint rules set to your own liking. A list of all rules
+# can be found at https://dart-lang.github.io/linter/lints/options/options.html
+linter:
+  rules:
+    sort_constructors_first: true
+    prefer_single_quotes: true

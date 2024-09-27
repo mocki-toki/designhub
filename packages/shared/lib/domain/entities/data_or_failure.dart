@@ -9,6 +9,9 @@ final class DataOrFailure<T> {
   final T? data;
   final Failure? failure;
 
+  bool get isSuccess => data != null;
+  bool get isFailure => failure != null;
+
   R when<R>({
     required R Function(T data) success,
     required R Function(Failure failure) failure,
@@ -35,6 +38,7 @@ final class DataOrFailure<T> {
 
 typedef SuccessOrFailure = DataOrFailure<void>;
 typedef ListDataOrFailure<T> = DataOrFailure<List<T>>;
+typedef PaginatedDataOrFailure<T> = DataOrFailure<PaginatedList<T>>;
 
 DataOrFailure<T> successful<T>(T data) => DataOrFailure<T>._success(data);
 DataOrFailure<T> failed<T>(Failure failure) =>

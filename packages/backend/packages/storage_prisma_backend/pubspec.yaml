@@ -1,0 +1,9 @@
+name: storage_prisma_backend
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.4.4 <4.0.0"
+
+dependencies:
+  orm: ^5.1.1

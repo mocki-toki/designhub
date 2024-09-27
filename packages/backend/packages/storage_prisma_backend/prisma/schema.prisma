@@ -1,0 +1,73 @@
+generator client {
+  provider = "dart run orm"
+  output   = "../lib/generated/prisma_client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("STORAGE_DATABASE_URL")
+}
+
+model UploadingSession {
+  id        String   @id @default(uuid())
+  authorId  String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  filePath  String
+  fileSize  Int
+}
+
+model FileDB {
+  id          String   @id @default(uuid())
+  authorId    String
+  name        String
+  contentType String
+  size        Int
+  url         String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  originalImage  ImageDB? @relation("OriginalImageFile")
+  thumbnailImage ImageDB? @relation("ThumbnailImageFile")
+  smallImage     ImageDB? @relation("SmallImageFile")
+  mediumImage    ImageDB? @relation("MediumImageFile")
+  largeImage     ImageDB? @relation("LargeImageFile")
+
+  video VideoDB? @relation("VideoFile")
+
+  @@map("File")
+}
+
+model ImageDB {
+  id        String   @id @default(uuid())
+  original  FileDB   @relation("OriginalImageFile", fields: [originalId], references: [id])
+  thumbnail FileDB   @relation("ThumbnailImageFile", fields: [thumbnailId], references: [id])
+  small     FileDB   @relation("SmallImageFile", fields: [smallId], references: [id])
+  medium    FileDB   @relation("MediumImageFile", fields: [mediumId], references: [id])
+  large     FileDB   @relation("LargeImageFile", fields: [largeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  originalId  String @unique
+  thumbnailId String @unique
+  smallId     String @unique
+  mediumId    String @unique
+  largeId     String @unique
+
+  video VideoDB? @relation("PreviewImage")
+
+  @@map("Image")
+}
+
+model VideoDB {
+  id        String   @id @default(uuid())
+  file      FileDB   @relation("VideoFile", fields: [fileId], references: [id])
+  preview   ImageDB  @relation("PreviewImage", fields: [previewId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fileId    String @unique
+  previewId String @unique
+
+  @@map("Video")
+}

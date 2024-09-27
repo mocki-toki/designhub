@@ -1,0 +1,92 @@
+generator client {
+  provider = "dart run orm"
+  output   = "../lib/generated/prisma_client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("SHARED_DATABASE_URL")
+}
+
+model CategoryDB {
+  id         String   @id @default(uuid())
+  key        String
+  value      String
+  properties String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  PostCategoryDb    PostCategoryDB[]
+  ProjectCategoryDb ProjectCategoryDB[]
+
+  @@map("Category")
+}
+
+model DailyLinkDB {
+  id              String          @id @default(uuid())
+  title           String
+  url             String
+  previewImageUrl String?
+  date            String
+  type            DailyLinkTypeDB
+
+  @@map("DailyLink")
+}
+
+enum DailyLinkTypeDB {
+  video
+  startup
+  utility
+  site
+  article
+  cases
+
+  @@map("DailyLinkType")
+}
+
+model BrandingProjectDB {
+  id          String              @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  children    BrandingPostDB[]
+  categories  ProjectCategoryDB[]
+
+  @@map("BrandingProject")
+}
+
+model BrandingPostDB {
+  id          String            @id @default(uuid())
+  parentId    String
+  name        String
+  description String
+  imageUrl    String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  sortOrder   Int
+  parent      BrandingProjectDB @relation(fields: [parentId], references: [id])
+  categories  PostCategoryDB[]
+
+  @@map("BrandingPost")
+}
+
+model PostCategoryDB {
+  BrandingPostDB BrandingPostDB @relation(fields: [postId], references: [id])
+  postId         String
+  CategoryDB     CategoryDB     @relation(fields: [categoryId], references: [id])
+  categoryId     String
+
+  @@id([postId, categoryId])
+  @@map("PostCategory")
+}
+
+model ProjectCategoryDB {
+  BrandingProjectDB BrandingProjectDB @relation(fields: [projectId], references: [id])
+  projectId         String
+  CategoryDB        CategoryDB        @relation(fields: [categoryId], references: [id])
+  categoryId        String
+
+  @@id([projectId, categoryId])
+  @@map("ProjectCategory")
+}

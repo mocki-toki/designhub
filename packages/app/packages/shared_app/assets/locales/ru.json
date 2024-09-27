@@ -1,0 +1,31 @@
+{
+  "language_name": "Русский",
+
+  "unknown_server_error": "Неизвестная ошибка сервера",
+  "network_error": "Сервер недоступен",
+  "unknown_error": "Неизвестная ошибка",
+
+  "email": "Электронная почта",
+  "password": "Пароль",
+  "totp_code": "TOTP-код",
+  "authorization": "Авторизация",
+
+  "sign_in": "Войти",
+  "sign_out": "Выйти",
+
+  "fill_all_fields_error": "Пожалуйста, заполните все поля.",
+
+  "daily_link_type_video": "Видео",
+  "daily_link_type_startup": "Стартап",
+  "daily_link_type_utility": "Инструмент",
+  "daily_link_type_site": "Сайт",
+  "daily_link_type_article": "Статья",
+  "daily_link_type_cases": "Кейс",
+
+  "daily_link_type_video_multiple": "Видео",
+  "daily_link_type_startup_multiple": "Стартапы",
+  "daily_link_type_utility_multiple": "Инструменты",
+  "daily_link_type_site_multiple": "Сайты",
+  "daily_link_type_article_multiple": "Статьи",
+  "daily_link_type_cases_multiple": "Кейсы"
+}
